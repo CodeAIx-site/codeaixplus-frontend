@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeAIx</title>
+    
+    <!-- Font Awesome for icons used by both the app and chatbot -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CodeMitra Chatbot styles -->
+    <link rel="stylesheet" href="https://codeaix-codemitra.vercel.app/style.css">
+    <link rel="stylesheet" href="https://codeaix-codemitra.vercel.app/global.css">
+    
+    <!-- Ensure the chatbot container styles don't conflict with React -->
+    <style>
+      #codemitra-container {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: 9999;
+        pointer-events: none;
+      }
+      #codemitra-container * {
+        pointer-events: auto;
+      }
+      
+      /* Improve visibility of hidden state */
+      #chat-container.hidden {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px) scale(0.95);
+        pointer-events: none !important;
+      }
+      
+      /* Improve visibility of visible state with transition */
+      #chat-container {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      }
+      
+      /* Make the close button more visible */
+      #close-chat {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+      
+      #close-chat:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Container for CodeMitra chatbot -->
+    <div id="codemitra-container"></div>
+    
+    <!-- CodeMitra Chatbot Integration Script -->
+    <script>
+      (function() {
+        // Create a separate scope to avoid conflicts
+        const chatbotContainer = document.getElementById('codemitra-container');
+        
+        // Ensure we load everything in the correct order - wait for React app to initialize
+        window.addEventListener('load', function() {
+          // Allow React to finish rendering first
+          setTimeout(function() {
+            // Create all necessary HTML elements for the chatbot
+            chatbotContainer.innerHTML = `
+              <!-- Chat Button -->
+              <button id="chatbot-btn" aria-label="Chat with CodeMitra">
+                <i class="fas fa-robot"></i>
+              </button>
+              
+              <!-- Chat Container -->
+              <div id="chat-container" class="hidden">
+                <div id="chat-header">
+                  <div class="chat-title">
+                    <i class="fas fa-robot bot-logo"></i>
+                    <span>Code<span class="highlight-text">Mitra</span></span>
+                  </div>
+                  <button id="close-chat">✖</button>
+                </div>
+                
+                <div id="chat-box">
+                  <!-- Welcome message will be added programmatically -->
+                </div>
+                
+                <div id="quick-questions">
+                  <!-- Quick questions will be added here dynamically -->
+                </div>
+                
+                <div class="chat-input-container">
+                  <input type="text" id="user-input" placeholder="Ask me anything...">
+                  <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                
+                <!-- Changed from button to anchor tag with direct link -->
+                <button 
+                  id="discuss-btn" 
+                  data-forum-url="https://codeaix-codemitra.vercel.app/dis_forum.html"
+                >
+                  <i class="fas fa-comments"></i> Join Discussion Forum
+                </button>
+              </div>
+            `;
+            
+            // Load the script that powers the chatbot
+            const script = document.createElement('script');
+            script.src = 'https://codeaix-codemitra.vercel.app/script.js';
+            script.onload = function() {
+              // Initialize chatbot elements
+              const chatContainer = document.getElementById('chat-container');
+              const chatButton = document.getElementById('chatbot-btn');
+              const closeButton = document.getElementById('close-chat');
+              const chatBox = document.getElementById('chat-box');
+              
+              // Function to open chat
+              function openChat() {
+                chatContainer.classList.remove('hidden');
+              }
+              
+              // Function to close chat
+              function closeChat() {
+                chatContainer.classList.add('hidden');
+              }
+              
+              // Add welcome message
+              setTimeout(function() {
+                const welcomeMessage = document.createElement('div');
+                welcomeMessage.classList.add('message', 'bot-message');
+                welcomeMessage.innerHTML = `
+                  <div class="message-icon bot-icon"><i class="fas fa-robot"></i></div>
+                  <div class="message-content">Hiii! 👋 I'm CodeMitra - CodeAIx chat assistant. How can I help you today?</div>
+                `;
+                chatBox.appendChild(welcomeMessage);
+              }, 500);
+              
+              // Event Listeners with better error handling
+              
+              // Open chat when button is clicked
+              chatButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                openChat();
+              });
+              
+              // Close chat when close button is clicked
+              closeButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeChat();
+              });
+              
+              // Close chat when clicking outside
+              document.addEventListener('mousedown', function(e) {
+                // Ensure chat is open and elements exist
+                if (chatContainer && !chatContainer.classList.contains('hidden')) {
+                  // Check if click is outside chat container and button
+                  if (!chatContainer.contains(e.target) && 
+                      e.target !== chatButton && 
+                      !chatButton.contains(e.target)) {
+                    closeChat();
+                  }
+                }
+              });
+
+              // ADD THIS: Custom handler for discussion forum that bypasses any routing
+              const discussButton = document.getElementById('discuss-btn');
+              if (discussButton) {
+                // Use capture phase to intercept clicks before other handlers
+                discussButton.addEventListener('click', function(e) {
+                  // Prevent default behavior and stop event propagation
+                  e.preventDefault();
+                  e.stopPropagation();
+                  e.stopImmediatePropagation();
+                  
+                  // Get URL from data attribute
+                  const forumUrl = this.getAttribute('data-forum-url');
+                  
+                  // Force open in new tab with the full URL
+                  const newWindow = window.open();
+                  if (newWindow) {
+                    newWindow.opener = null; // For security
+                    newWindow.location = forumUrl;
+                  } else {
+                    // Fallback for popup blockers
+                    alert("Please allow popups for this website to open the discussion forum.");
+                  }
+                  
+                  return false; // Extra precaution
+                }, true); // true makes this use capture phase
+              }
+              
+              // Initialize any additional functionality from the chatbot script
+              if (typeof initChatbot === 'function') {
+                initChatbot();
+              }
+            };
+            
+            document.body.appendChild(script);
+          }, 1500); // Added a slightly longer delay for TypeScript React apps
+        });
+      })();
+    </script>
+  </body>
+</html>

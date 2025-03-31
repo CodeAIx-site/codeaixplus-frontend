@@ -1,0 +1,1832 @@
+/* Import IBM Plex Sans and Press Start 2P fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Add these styles at the top of your App.css file */
+
+/* Fix for white background during scrolling */
+html, body, #root {
+  background-color: var(--bgA);
+  min-height: 100vh;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none;
+}
+
+body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  position: relative;
+  background-color: var(--bgA);
+  color: var(--textColorA);
+  font-family: var(--main-font);
+  font-weight: 300;
+  font-size: 14px;
+  padding-bottom: 0; /* Ensure no extra space at bottom */
+}
+
+/* Apply fixed background to the entire root element */
+#root {
+  background-color: var(--bgA);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Ensure #App takes at least the full viewport height but with less top padding */
+#App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--bgA);
+  width: 100%;
+  height: 100%;
+  padding-top: 5rem; /* Increased from 4rem to account for higher navbar */
+  cursor: default;
+  text-align: center;
+  color: var(--textColorA);
+  font-family: var(--main-font);
+}
+
+/* Ensure Footer sticks to the bottom if content is short */
+.footer-container {
+  margin-top: auto;
+}
+/* Monaco editor styling */
+.monaco-editor {
+  font-family: 'IBM Plex Sans', monospace !important;
+  font-weight: 400;
+}
+
+/* Adjust the editor line height for better readability */
+.monaco-editor .view-lines {
+  line-height: 1.5 !important;
+}
+
+/* Smooth scrolling on the editor */
+.monaco-scrollable-element {
+  scroll-behavior: smooth;
+}
+
+/* Make the editor corners rounded to match your design */
+.monaco-editor {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Styling editor scrollbars */
+.monaco-editor .scrollbar .slider {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 10px !important;
+}
+
+.monaco-editor .scrollbar .slider:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+:root {
+  /* Colors */
+  --textColorA: #ffffff; /* Pure White */
+  --textColorB: #e2e8f0;
+  --textColorC: #d5d5d5;
+  --greyA: #444444; /* Charcoal Mist */
+  --greyB: #747474; /* Steel Whisper */
+  --greyC: #9f9f9f; /* Steel Whisper */
+  --greyD: #313030; /* Obsidian Gray */
+
+  /* Backgrounds */
+  --bgA: #191B1C;
+  --bgB: #1a202c;
+  --bgE: rgba(255, 255, 255, 0.1);
+  --bgC: rgb(12, 53, 106);
+  --bgD: #ff4500;
+  --bgC_glow: rgb(12, 53, 106, 0.6);
+
+  /* Backdrop Filter */
+  --blurA: blur(10px);
+  --blurB: blur(2px);
+  --blurC: blur(25px);
+  --blurD: blur(12.5px);
+
+  /* Background Image */
+  --biA: linear-gradient(
+    144deg,
+    rgba(238, 237, 242, 0.3),
+    hsla(0, 0%, 100%, 0) 43%
+  );
+  --biB: linear-gradient(
+    288deg,
+    rgba(238, 237, 242, 0.3),
+    hsla(0, 0%, 100%, 0) 43%
+  );
+  --biC: radial-gradient(
+    circle farthest-corner at 50% 50%,
+    rgba(28, 19, 65, 0.87),
+    rgba(28, 19, 65, 0) 61%
+  );
+
+  /* Box Shadow */
+  --shadowA: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+  /* Fonts */
+  --main-font: 'IBM Plex Sans', system-ui;
+  --display-font: 'Press Start 2P', system-ui;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+@keyframes btnShadowAnim {
+  0% {
+    text-shadow: #48abe0 0 0 10px;
+    box-shadow: 0px 0px 20px 10px #48abe0;
+  }
+  50% {
+    text-shadow: blueviolet 0 0 10px;
+    box-shadow: 0px 0px 20px 10px blueviolet;
+  }
+  75% {
+    text-shadow: rebeccapurple 0 0 10px;
+    box-shadow: 0px 0px 20px 10px rebeccapuprle;
+  }
+  100% {
+    text-shadow: #48abe0 0 0 10px;
+    box-shadow: 0px 0px 20px 10px #48abe0;
+  }
+}
+
+/* Particle Css */
+#tsparticles {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  background: var(--bgB);
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+/* Loader 1 */
+@keyframes layers1 {
+  0% {
+    box-shadow: 0px 0px 0 0px;
+  }
+  90%,
+  100% {
+    box-shadow: 20px 20px 0 -4px;
+  }
+}
+@keyframes layerTr {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-25px, -25px) scale(1);
+  }
+}
+
+/* Scroll Bar Css */
+::-webkit-scrollbar {
+  width: 7.5px;
+  height: 3.5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--greyC);
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bgC);
+  border-radius: 50px;
+  cursor: pointer;
+}
+.no-scroll {
+  overflow: hidden;
+}
+
+/* Navbar styles - more compact design */
+.navbar {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0.75rem; /* Reduced from 0.35rem 1rem */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0 auto;
+  z-index: 1000;
+  margin-bottom: 0;
+}
+
+/* Add this style for the highlighted parts of the navbar title */
+
+.highlight-text {
+  color: #d57aff;
+  text-shadow: 0 0 4px rgba(213, 122, 255, 0.4); /* Very subtle glow effect */
+}
+
+/* Update the navbar title style to ensure proper text display */
+.navbar-title {
+  font-family: 'Press Start 2P', system-ui;
+  font-size: 1.2rem;
+  font-weight: 400;
+  display: flex; /* This helps with keeping the text inline */
+  align-items: center;
+  position: relative;
+  padding: 0; /* Remove padding */
+  border-radius: 0; /* Remove border radius */
+  transition: none; /* Remove transition effect */
+  cursor: pointer;
+  gap: 2px;
+}
+
+/* Remove hover effect *
+
+/* Add a small dropdown indicator after the title */
+
+
+/* Rotate the dropdown indicator when menu is open */
+.navbar-title.menu-open::after {
+  transform: rotate(180deg);
+}
+
+/* Reduced gap between buttons */
+.navbar-buttons {
+  display: flex;
+  gap: 0.35rem; /* Reduced from 0.5rem */
+}
+
+/* Navbar button link styling to ensure consistency */
+.navbar-button.navbar-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #FFFFFF;
+  font-family: var(--main-font);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* Ensure proper spacing for navbar buttons */
+.navbar-buttons {
+  display: flex;
+  gap: 0.5rem; /* Consistent gap between buttons */
+}
+
+/* Enhance opacity on hover for better feedback */
+.navbar-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(1px);
+}
+
+/* Active state for buttons */
+.navbar-button:active {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(2px);
+}
+
+/* Media query adjustments */
+@media (max-width: 480px) {
+  .navbar-button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Reduced button padding */
+.navbar-button {
+  padding: 0.3rem 0.6rem; /* Reduced from 0.2rem 0.5rem */
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px; /* Reduced from 10px */
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  /* other styles */
+  box-shadow: none !important; /* Remove any box shadow */
+}
+
+.navbar-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: none !important; /* Remove the transform effect */
+}
+
+.navbar-button:active {
+  background: rgba(255, 255, 255, 0.3);
+  transform: none !important; /* Remove the transform effect */
+}
+
+.navbar-button.navbar-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #FFFFFF;
+  font-family: var(--main-font);
+  font-weight: 400;
+  font-size: 0.85rem; /* Match the size */
+  padding: 0.15rem 0.4rem; /* Match the padding */
+}
+
+/* Custom input styles */
+.custom-input {
+  background-color: #181A1B;
+}
+
+/* GitHub importer styling */
+.github-importer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  padding: 20px;
+  color: #fff;
+  z-index: 1000;
+  overflow-y: auto;
+  text-align: left; /* Override any center alignment from parent containers */
+}
+
+.importer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.importer-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.importer-title .github-icon {
+  font-size: 22px;
+}
+
+.importer-form {
+  margin-bottom: 20px;
+  text-align: left; /* Ensure the form itself is left-aligned */
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left; /* Explicitly set left alignment */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  text-align: left; /* Ensure labels are left-aligned */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  text-align: left; /* Ensure input text is left-aligned */
+}
+
+.repo-contents {
+  margin-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.repo-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.repo-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.error-message {
+  background: rgba(255, 59, 59, 0.1);
+  border-left: 3px solid rgba(255, 59, 59, 0.7);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 0 8px 8px 0;
+  color: #ff6b6b;
+}
+
+.current-path {
+  margin: 15px 0;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: not-allowed;
+}
+
+.github-button {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Reduced from 5px */
+}
+
+.github-icon {
+  font-size: 14px; /* Reduced from 18px */
+}
+
+/* Style scrollbar for the repo contents */
+.repo-contents::-webkit-scrollbar {
+  width: 8px;
+}
+
+.repo-contents::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.repo-contents::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.repo-contents::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Output details styling */
+.output-details-container {
+  margin-top: 1.25rem;
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-out;
+  overflow: hidden;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.output-details-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add to your App.css or create a new CSS file */
+.code-editor-overlay, .output-window-overlay {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Monaco editor override styles for custom appearance */
+.monaco-editor .margin {
+  background-color: transparent !important;
+}
+
+/* Code action buttons styling */
+.code-action-button {
+  position: relative;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 10px !important;
+  color: #FFFFFF !important;
+  transition: all 0.3s ease !important;
+  overflow: hidden !important;
+}
+
+.code-action-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.code-action-button:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Add subtle animation for icons */
+.code-action-button svg {
+  transition: transform 0.3s ease !important;
+}
+
+.code-action-button:hover svg {
+  transform: scale(1.1) !important;
+}
+
+/* Add these styles for button consistency */
+
+.chakra-button, 
+.code-action-button {
+  background-color: #444444 !important;
+  color: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  border-radius: 5px !important;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.chakra-button:hover,
+.code-action-button:hover {
+  transform: translateY(2px) !important;
+  /* Removed border-color change */
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1) !important;
+}
+
+.chakra-button:active,
+.code-action-button:active {
+  transform: translateY(4px) !important;
+}
+
+@media (max-width: 768px) {
+  .chakra-button, 
+  .code-action-button {
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .chakra-button, 
+  .code-action-button {
+    box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1) !important;
+  }
+}
+
+/* Remove light purple border from hover/focus states */
+
+/* Override Chakra UI's default focus styles */
+.chakra-select:focus,
+.chakra-select[data-focus],
+.chakra-select:focus-visible {
+  border-color: #000000 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Fix any other form elements */
+button:focus,
+button:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible,
+textarea:focus,
+textarea:focus-visible {
+  border-color: #000000 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Update hover states to maintain black border */
+.code-action-button:hover {
+  background-color: #444444 !important;
+  transform: translateY(2px) !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1) !important;
+  border: 2px solid #000000 !important; /* Keep black border */
+}
+
+.code-action-button:focus,
+.code-action-button:focus-visible {
+  border: 2px solid #000000 !important; /* Keep black border */
+  transform: translateY(2px) !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1) !important;
+  outline: none !important;
+}
+
+/* Fix for font size control */
+.font-size-control:focus,
+.font-size-control:focus-visible,
+.font-size-control:hover {
+  border: 2px solid #000000 !important; /* Keep black border */
+  transform: translateY(2px) !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1) !important;
+  outline: none !important;
+}
+
+/* Add these styles for the editor share button */
+.editor-share-button {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.editor-share-button:hover {
+  opacity: 1;
+}
+
+/* Style the share popover */
+.chakra-popover__content {
+  border: 2px solid #000000 !important;
+  border-radius: 5px !important;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1) !important;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .navbar {
+    width: 80%;
+    top: 1.5rem; /* Increased from 0.75rem to maintain proportions */
+  }
+  
+  #App {
+    padding-top: 4.5rem; /* Increased from 3.5rem */
+  }
+  
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    width: 90%;
+    padding: 0.4rem 0.8rem;
+    top: 1rem; /* Increased from 0.5rem to maintain proportions */
+  }
+  
+  #App {
+    padding-top: 4rem; /* Increased from 3rem */
+  }
+  
+  .navbar-title {
+    font-size: 0.9rem;
+  }
+  
+  .navbar-button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Add this class to your main content container if you need additional adjustments */
+.main-content {
+  margin-top: 0.5rem; /* Add minimal top margin to content */
+}
+
+/* Add these styles for the share button and dropdown */
+
+/* Editor actions container */
+.editor-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+/* Code action button styling for share button */
+.share-code-container .code-action-button {
+  background-color: #444444;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 0.2s ease;
+  opacity: 0.8;
+  padding: 0;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+}
+
+/* Make the share button more visible */
+.share-code-container .code-action-button svg {
+  font-size: 18px;
+  display: block;
+}
+
+.share-code-container .code-action-button:hover {
+  background-color: #444444;
+  transform: translateY(2px);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+  opacity: 1;
+}
+
+/* Share dropdown styling */
+.share-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: rgba(40, 40, 40, 0.9);
+  backdrop-filter: blur(10px);
+  border: 2px solid #000000;
+  border-radius: 8px;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+
+/* Share icon buttons - with 3D pressing design */
+.share-icon-button {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  border: 2px solid #000000;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 0.2s ease;
+  margin: 0 4px;
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none; /* Prevents tooltip from interfering with clicks */
+  z-index: 200;
+}
+
+/* Show tooltip on hover */
+.share-icon-button:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Tooltip arrow */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+}
+
+/* Common hover effect for all platform buttons */
+.share-icon-button:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+}
+
+/* Platform-specific icon button colors */
+.x-icon {
+  background-color: #000000;
+}
+.x-icon:hover {
+  background-color: #000000;
+}
+
+.whatsapp-icon {
+  background-color: #25D366;
+}
+.whatsapp-icon:hover {
+  background-color: #25D366;
+}
+
+.email-icon {
+  background-color: #DB4437;
+}
+.email-icon:hover {
+  background-color: #DB4437;
+}
+
+.linkedin-icon {
+  background-color: #0077B5;
+}
+.linkedin-icon:hover {
+  background-color: #0077B5;
+}
+
+.facebook-icon {
+  background-color: #4267B2;
+}
+.facebook-icon:hover {
+  background-color: #4267B2;
+}
+
+.copy-icon {
+  background-color: #6E6E6E;
+}
+.copy-icon:hover {
+  background-color: #6E6E6E;
+}
+
+/* Native share button - with orange color */
+.native-icon {
+  background-color: #FF7900;
+}
+.native-icon:hover {
+  background-color: #FF7900;
+}
+
+/* Share code container */
+.share-code-container {
+  position: relative;
+}
+
+/* Add these specific button styles to ensure visibility */
+
+/* Code action button specific size and style fixes */
+.code-action-button {
+  background-color: #444444;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+  transition: all 0.2s ease;
+  opacity: 0.8;
+  padding: 0;
+}
+
+.code-action-button svg {
+  font-size: 18px;
+  display: block;
+}
+
+/* Enhanced shadow-4xl class for editor container */
+.shadow-4xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Platform-specific button colors for visibility */
+.x-icon {
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.whatsapp-icon {
+  background-color: #25D366 !important;
+  color: white !important;
+}
+
+.email-icon {
+  background-color: #DB4437 !important;
+  color: white !important;
+}
+
+.linkedin-icon {
+  background-color: #0077B5 !important;
+  color: white !important;
+}
+
+.facebook-icon {
+  background-color: #4267B2 !important;
+  color: white !important;
+}
+
+.copy-icon {
+  background-color: #6E6E6E !important;
+  color: white !important;
+}
+
+.native-icon {
+  background-color: #FF7900 !important;
+  color: white !important;
+}
+
+/* Enhanced visibility for tooltip */
+.tooltip {
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  color: white !important;
+  padding: 5px 8px !important;
+  font-size: 12px !important;
+  border-radius: 4px !important;
+  white-space: nowrap !important;
+}
+
+/* Ultra-minimal model selector styling */
+.model-dropdown-arrow-mini {
+  width: 5px;
+  height: 5px;
+  margin-left: 2px;
+  transition: transform 0.2s ease;
+  display: inline-block;
+  vertical-align: middle;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+}
+
+.model-dropdown-arrow-mini.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* Ultra-compact dropdown */
+.model-dropdown-navbar {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: -10px;
+  width: 100px;
+  background-color: rgba(31, 32, 50, 0.98);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 12px !important; /* Increased from default */
+}
+
+/* Micro-compact model options */
+.model-option {
+  display: flex;
+  align-items: center;
+  padding: 5px 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.model-option:last-child {
+  border-bottom: none;
+}
+
+.model-option:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.model-option.selected {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Tiny model icons */
+.model-icon {
+  margin-right: 4px;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.model-icon svg {
+  width: 10px;
+  height: 10px;
+}
+
+.model-icon.premium {
+  color: #d57aff;
+}
+
+.model-icon.basic {
+  color: #9f9f9f;
+}
+
+/* Ultra-minimal text */
+.model-info {
+  flex: 1;
+  text-align: left;
+  font-family: 'IBM Plex Sans', sans-serif;
+  min-width: 0;
+}
+
+.model-info h3 {
+  font-size: 11px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+
+/* Larger plus sign */
+.plus-highlight {
+  color: #d57aff;
+  text-shadow: 0 0 10px rgba(213, 122, 255, 0.7), 0 0 5px rgba(213, 122, 255, 0.4);
+  margin-left: 2px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  animation: pulse-glow 2s infinite alternate;
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(-2px);
+  padding-left: 1px;
+}
+
+/* Smaller plus sign in dropdown menu */
+.model-info h3 .plus-highlight {
+  font-size: 16px;
+  vertical-align: baseline;
+  transform: translateY(0);
+}
+
+/* Hide all paragraphs to save space */
+.model-info p {
+  display: none;
+}
+
+/* Micro-sized check icon - UPDATED BIGGER SIZE */
+.check-icon {
+  margin-left: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.check-circle {
+  width: 14px; /* Increased from 8px */
+  height: 14px; /* Increased from 8px */
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-circle svg {
+  width: 8px; /* Increased from 5px */
+  height: 8px; /* Increased from 5px */
+}
+
+/* Enhanced glow animation */
+@keyframes pulse-glow {
+  0% {
+    text-shadow: 0 0 8px rgba(213, 122, 255, 0.5), 0 0 15px rgba(213, 122, 255, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(213, 122, 255, 0.8), 0 0 30px rgba(213, 122, 255, 0.5);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .model-dropdown-navbar {
+    width: 90px;
+    left: -5px;
+  }
+  
+  .model-option {
+    padding: 4px 5px;
+  }
+  
+  .model-info h3 {
+    font-size: 10px;
+  }
+  
+  .plus-highlight {
+    font-size: 22px;
+  }
+  
+  .model-info h3 .plus-highlight {
+    font-size: 14px;
+  }
+  
+  .model-icon {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .check-circle {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* Glassmorphism dropdown styles - Enhanced for ModelSelector */
+.glassmorphism-dropdown {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(40px) !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+  background-color: rgba(30, 30, 40, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 384px !important; /* w-96 in Tailwind equals 24rem/384px */
+  border-radius: 0.75rem !important; /* rounded-xl */
+  z-index: 20;
+  padding: 12px !important; /* Override the padding: 0 !important; */
+  top: 3rem !important; /* top-12 */
+  left: 0;
+  position: absolute;
+}
+
+/* Item styles for model options */
+.glassmorphism-item {
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  background: rgba(40, 40, 50, 0.4) !important; /* Darker background for items */
+}
+
+.glassmorphism-item:hover {
+  background: rgba(60, 60, 70, 0.5) !important; /* Darker hover state */
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Text and formatting styles */
+.text-white {
+  color: white !important;
+}
+
+.text-white\/80 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.text-xs {
+  font-size: 0.75rem !important;
+}
+
+.text-sm {
+  font-size: 0.875rem !important;
+}
+
+.text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.font-semibold {
+  font-weight: 600 !important;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}
+
+/* Layout classes */
+.relative {
+  position: relative !important;
+}
+
+.px-3 {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem !important;
+  padding-bottom: 0.375rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+
+.flex-col {
+  flex-direction: column !important;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem !important;
+}
+
+/* Icon container styles */
+.w-6 {
+  width: 1.5rem !important;
+}
+
+.h-6 {
+  height: 1.5rem !important;
+}
+
+.w-4 {
+  width: 1rem !important;
+}
+
+.h-4 {
+  height: 1rem !important;
+}
+
+.bg-zinc-800\/50 {
+  background-color: rgba(39, 39, 42, 0.5) !important;
+}
+
+.rounded-full {
+  border-radius: 9999px !important;
+}
+
+.text-purple-400 {
+  color: #c084fc !important;
+}
+
+.ml-2 {
+  margin-left: 0.5rem !important;
+}
+
+.mr-3 {
+  margin-right: 0.75rem !important;
+}
+
+.mt-1 {
+  margin-top: 0.25rem !important;
+}
+
+/* Flex utilities */
+.flex-1 {
+  flex: 1 1 0% !important;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0 !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.leading-tight {
+  line-height: 1.25 !important;
+}
+
+/* Enhanced blur effects */
+.backdrop-blur-2xl {
+  backdrop-filter: blur(40px) !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+}
+
+/* Border styles */
+.border-purple-400\/40 {
+  border-color: rgba(192, 132, 252, 0.4) !important;
+}
+
+.border-white\/10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.border-white\/20 {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Transitions */
+.transition-transform {
+  transition: transform 0.2s ease; /* Controls animation speed and style */
+}
+
+.transition-all {
+  transition-property: all !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-duration: 150ms !important;
+}
+
+/* Shadow */
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Make sure dropdown stays on top */
+.z-20 {
+  z-index: 20 !important;
+}
+
+/* Mobile responsiveness for the dropdown */
+@media (max-width: 768px) {
+  .glassmorphism-dropdown {
+    width: 320px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .glassmorphism-dropdown {
+    width: 256px !important;
+    left: -50px !important;
+  }
+}
+
+/* Wider dropdown to show descriptions */
+.model-dropdown-navbar {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: -10px;
+  width: 320px !important; /* Increased width */
+  background-color: rgba(31, 32, 50, 0.95);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1500;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 9px !important; /* Increased from default */
+}
+
+.wider-dropdown .model-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Increased from 8px */
+  padding: 4px; /* Add some internal padding */
+}
+
+/* Improved model options with better spacing */
+.model-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  margin-bottom: 4px;
+}
+
+.model-option:last-child {
+  margin-bottom: 0;
+}
+
+.model-option:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.model-option.selected {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Fix model icons */
+.model-icon {
+  margin-right: 12px;
+  margin-top: 2px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: rgba(28, 28, 40, 0.5);
+  border-radius: 50%;
+  padding: 6px;
+}
+
+.model-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.model-icon.premium {
+  color: #d57aff;
+}
+
+.model-icon.basic {
+  color: #9f9f9f;
+}
+
+/* Fix model info text */
+.model-info {
+  flex: 1;
+  text-align: left;
+  font-family: 'IBM Plex Sans', sans-serif;
+  min-width: 0;
+  margin-right: 8px; /* Add space for checkmark */
+}
+
+.model-info h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+
+/* Make description text visible with proper styling */
+.description-text {
+  font-size: 12px;
+  margin: 4px 0 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+  word-wrap: break-word;
+  display: block;
+  max-width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .model-dropdown-navbar {
+    width: 280px !important;
+    left: -60px;
+  }
+}
+
+/* Add this at the end of your App.css file to ensure it overrides any conflicting styles */
+.model-dropdown-navbar.glassmorphism-dropdown {
+  width: 384px !important;
+  max-width: 90vw !important;
+  left: -10px !important;
+  padding: 11px !important; /* Override the padding: 0 !important; */
+}
+
+/* Fix model option display in wider dropdown */
+.glassmorphism-dropdown .text-gray-400.text-xs.leading-tight {
+  display: block !important;
+  white-space: normal !important;
+  line-height: 1.4 !important;
+  margin-top: 4px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
+}
+
+/* Mobile responsiveness adjustments */
+@media (max-width: 480px) {
+  .model-dropdown-navbar.glassmorphism-dropdown {
+    width: 300px !important;
+    left: -60px !important;
+  }
+}
+
+/* ADD THIS AT THE VERY END OF YOUR CSS FILE TO OVERRIDE EVERYTHING ELSE */
+
+/* Super specific selector to ensure model descriptions are visible */
+.model-description {
+  display: block !important;
+  font-size: 0.75rem !important;
+  margin-top: 4px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  line-height: 1.4 !important;
+  word-wrap: break-word !important;
+  white-space: normal !important;
+  max-width: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure proper width for the dropdown container */
+.fixed-width-dropdown {
+  position: absolute;
+  top: 3rem;
+  left: -10px;
+  width: 384px !important;
+  max-width: 90vw;
+  background-color: rgba(30, 30, 40, 0.7);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+  z-index: 20;
+  overflow: visible;
+}
+
+/* Override this rule that is hiding your description text */
+.model-info p {
+  display: block !important; /* Override the 'display: none' rule */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  .fixed-width-dropdown {
+    width: 300px !important;
+    left: -60px;
+  }
+}
+
+/* ADD THESE STYLES AT THE END OF YOUR CSS FILE */
+
+/* Enhanced dropdown button styling */
+.navbar-title.dropdown-button {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.navbar-title.dropdown-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Logo text container */
+.logo-text {
+  margin-right: 8px;
+}
+
+/* Dropdown indicator styling */
+.dropdown-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  margin-top: 1px;
+}
+
+.dropdown-indicator:hover {
+  opacity: 1;
+}
+
+/* Rotation animation for dropdown indicator */
+.dropdown-indicator.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* Remove any existing ::after pseudo-element if it conflicts */
+.navbar-title::after {
+  content: none;
+}
+
+/* Adjust spacing for titlebar components */
+.navbar-title {
+  gap: 2px;
+}
+
+.ml-1 {
+  margin-left: 4px;
+}
+
+/* Animation for dropdown indicator */
+.dropdown-indicator svg {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-indicator svg.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* Ensure descriptions are visible in dropdown */
+.model-info p,
+.description-text {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 0.75rem !important;
+  margin-top: 4px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Dropdown styling adjustments */
+.wider-dropdown {
+  width: 384px !important;
+  left: 0 !important;
+}
+
+/* Rotation when dropdown is open */
+.rotate-180 {
+  transition: transform 0.3s ease;
+  
+  transform: rotate(180deg); /* Flips the arrow upside down */
+}
+
+/* ENHANCED MODEL SELECTOR - Add to the end of your CSS file */
+
+/* Improved navbar title with icon alignment */
+.navbar-title {
+  font-family: 'Press Start 2P', system-ui;
+  font-size: 1.2rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 3px 6px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.navbar-title:hover {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Premium dropdown styling */
+.premium-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: -10px;
+  width: 380px;
+  max-width: 90vw;
+  background: rgba(30, 30, 40, 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25), 0 8px 10px rgba(0, 0, 0, 0.22);
+  z-index: 50;
+  overflow: hidden;
+  padding: 0; /* Reset padding */
+}
+
+/* Header styling */
+.dropdown-header {
+  padding: 16px; /* Increased from 12px 16px */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left !important; /* Force left alignment */
+  justify-content: flex-start !important; /* Force left alignment for flex containers */
+  display: block !important; /* Prevent flex alignment issues */
+}
+
+.header-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
+  text-align: left !important; /* Force left alignment */
+}
+
+/* Model options container */
+.model-options {
+  padding: 16px; /* Increased from 12px */
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Increased from 8px */
+}
+
+/* Individual model option */
+.model-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(45, 45, 55, 0.5);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.model-option:hover {
+  background: rgba(55, 55, 65, 0.6);
+  transform: translateY(-1px);
+}
+
+.model-option.selected {
+  background: rgba(60, 60, 75, 0.7);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Icon container */
+.icon-container {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(25, 25, 35, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.icon-container.premium {
+  color: #d57aff;
+}
+
+.icon-container.basic {
+  color: #a0a0a0;
+}
+
+.icon-container svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Content area */
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+}
+
+/* Description - Force visibility */
+.description {
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  word-wrap: break-word !important;
+  white-space: normal !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-width: 100% !important;
+}
+
+/* Checkmark styles - UPDATED BIGGER SIZE */
+.checkmark {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+.circle {
+  width: 22px; /* Increased from 16px */
+  height: 22px; /* Increased from 16px */
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-icon {
+  width: 14px; /* Increased from 10px */
+  height: 14px; /* Increased from 10px */
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .premium-dropdown {
+    width: 300px;
+    left: -60px;
+  }
+  
+  .model-option {
+    padding: 10px;
+  }
+  
+  .icon-container {
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+  }
+}
+
+/* Fix alignment in Navbar.tsx implementation */
+.flex.justify-start.items-start.px-3.py-1\.5.mb-2 {
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+.flex.justify-start.items-start.px-3.py-1\.5.mb-2 h4 {
+  text-align: left !important;
+  width: 100% !important;
+}
+

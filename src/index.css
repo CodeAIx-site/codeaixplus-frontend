@@ -1,0 +1,181 @@
+:root {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-optical-sizing: auto;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+/* Modern Breathing Animation Loading Indicator */
+.auth-check-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* Replace the spinner with a breathing pulse */
+.loading-spinner {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+/* Primary circle - the main breathing element */
+.loading-spinner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #4facfe, #00f2fe);
+  box-shadow: 0 0 25px rgba(79, 172, 254, 0.6);
+  animation: breathe 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Secondary circles - create an orbit effect */
+.loading-spinner::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  z-index: 1;
+}
+
+/* Inner dot - creates a focal point */
+.loading-spinner .inner-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #4facfe, #00f2fe);
+  box-shadow: 0 0 10px rgba(79, 172, 254, 0.8);
+  z-index: 2;
+  animation: pulse 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Orbital particles */
+.loading-spinner .particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(79, 172, 254, 0.8);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.loading-spinner .particle:nth-child(1) {
+  animation: orbit 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.loading-spinner .particle:nth-child(2) {
+  animation: orbit 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.4s;
+}
+
+.loading-spinner .particle:nth-child(3) {
+  animation: orbit 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.8s;
+}
+
+/* Loading text animation */
+.loading-text {
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+  animation: fadeText 2.5s ease-in-out infinite;
+}
+
+/* Breathing animation */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  
+  50% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Inner dot pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.5;
+  }
+  
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Orbital particle animation */
+@keyframes orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(15px) scale(0.7);
+    opacity: 0;
+  }
+  
+  20% {
+    opacity: 1;
+  }
+  
+  80% {
+    opacity: 1;
+  }
+  
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(15px) scale(0.7);
+    opacity: 0;
+  }
+}
+
+/* Text fade animation */
+@keyframes fadeText {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  
+  50% {
+    opacity: 1;
+  }
+}
+
+
